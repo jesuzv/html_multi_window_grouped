@@ -1,0 +1,39 @@
+name: Weekly grouped HTML generation
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Mondays (UTC). Multiple attempts for reliability
+    - cron: "13 1 * * 1"
+    - cron: "21 2 * * 1"
+    - cron: "42 3 * * 1"
+    - cron: "51 4 * * 1"
+    - cron: "17 5 * * 1"
+    - cron: "23 6 * * 1"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: weekly-grouped-html-generation
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run generator and publish to gh-pages (skips if already succeeded this week)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python generate.py
