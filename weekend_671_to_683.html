@@ -1,0 +1,134 @@
+<!doctype html><html lang="en">
+<head><meta charset="utf-8"><title>Routes 671–683</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 24px; line-height: 1.4; }
+  .blocked {
+    display:none; margin-top:16px; padding:12px 14px;
+    border:1px solid #e5e5e5; border-radius:12px; background:#fafafa;
+  }
+  button {
+    font-size:18px; padding:10px 14px; border-radius:12px;
+    border:1px solid #ccc; cursor:pointer;
+  }
+  ol { margin-top: 12px; padding-left: 20px; }
+  li { margin: 6px 0; }
+  a { margin-left: 6px; }
+  .note { margin-top:10px; color:#555; }
+  #status { margin-top:10px; color:#333; }
+</style>
+<script>
+const labels = ["671 — This weekend — inbound", "671 — This weekend — outbound", "672 — This weekend — inbound", "672 — This weekend — outbound", "674 — This weekend — inbound", "674 — This weekend — outbound", "675 — This weekend — inbound", "675 — This weekend — outbound", "677 — This weekend — inbound", "677 — This weekend — outbound", "678 — This weekend — inbound", "678 — This weekend — outbound", "679 — This weekend — inbound", "679 — This weekend — outbound", "68 — This weekend — inbound", "68 — This weekend — outbound", "681 — This weekend — inbound", "681 — This weekend — outbound", "683 — This weekend — inbound", "683 — This weekend — outbound"];
+const urls = ["https://tfl.gov.uk/bus/status/?input=671&lineIds=671&direction=inbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=671&lineIds=671&direction=outbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=672&lineIds=672&direction=inbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=672&lineIds=672&direction=outbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=674&lineIds=674&direction=inbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=674&lineIds=674&direction=outbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=675&lineIds=675&direction=inbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=675&lineIds=675&direction=outbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=677&lineIds=677&direction=inbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=677&lineIds=677&direction=outbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=678&lineIds=678&direction=inbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=678&lineIds=678&direction=outbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=679&lineIds=679&direction=inbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=679&lineIds=679&direction=outbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=68&lineIds=68&direction=inbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=68&lineIds=68&direction=outbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=681&lineIds=681&direction=inbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=681&lineIds=681&direction=outbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=683&lineIds=683&direction=inbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend", "https://tfl.gov.uk/bus/status/?input=683&lineIds=683&direction=outbound&startDate=2026-03-14T00%3A00%3A00&endDate=2026-03-15T23%3A59%3A59&dateTypeSelect=This%20weekend"];
+const delays = [0, 60, 200, 260, 400, 460, 600, 660, 800, 860, 1000, 1060, 1200, 1260, 1400, 1460, 1600, 1660, 1800, 1860];
+
+let timeouts = [];
+
+function clearSchedule() {
+  for (const id of timeouts) clearTimeout(id);
+  timeouts = [];
+}
+
+function setStatus(msg) {
+  const el = document.getElementById("status");
+  if (el) el.textContent = msg;
+}
+
+function renderPlannedList() {
+  const ol = document.getElementById("plannedList");
+  if (!ol) return;
+  ol.innerHTML = "";
+  for (let i = 0; i < labels.length; i++) {
+    const li = document.createElement("li");
+
+    const labelSpan = document.createElement("span");
+    labelSpan.textContent = labels[i];
+
+    const link = document.createElement("a");
+    link.href = urls[i];
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.textContent = "open";
+
+    li.appendChild(labelSpan);
+    li.appendChild(document.createTextNode(" "));
+    li.appendChild(link);
+    ol.appendChild(li);
+  }
+}
+
+function showFallback() {
+  clearSchedule();
+  const box = document.getElementById("blocked");
+  box.style.display = "block";
+  document.getElementById("tabCount").textContent = String(urls.length);
+  renderPlannedList();
+  setStatus("Popups are blocked. Allow popups for this site, then click “Open all tabs” to open everything in order.");
+
+  document.getElementById("openAll").onclick = () => {
+    setStatus("Checking popup permission…");
+    // Must succeed on *this click* (user gesture). If blocked here, schedule will also fail.
+    const test = window.open(urls[0]);
+    if (!test) {
+      setStatus("Still blocked. Allow popups for this site first — otherwise the browser will open 0–1 tab.");
+      return;
+    }
+
+    setStatus("Popups allowed — opening tabs in order…");
+    // We already opened index 0 in the permission test, so schedule the rest preserving spacing.
+    scheduleFrom(1, delays[1] || 0);
+  };
+}
+
+function scheduleFrom(startIdx, t0Delay) {
+  for (let i = startIdx; i < urls.length; i++) {
+    const d = Math.max(0, (delays[i] || 0) - t0Delay);
+    const id = setTimeout(() => {
+      const w = window.open(urls[i]);
+      if (!w) {
+        // If the browser starts blocking mid-stream, fall back immediately.
+        showFallback();
+      }
+    }, d);
+    timeouts.push(id);
+  }
+}
+
+window.onload = function() {
+  const w0 = window.open(urls[0]);
+  if (!w0) {
+    showFallback();
+    return;
+  }
+  scheduleFrom(1, delays[1] || 0);
+};
+</script>
+</head>
+<body>
+<p>
+  Opening “This weekend” tabs for routes 671 → 683.<br>
+  Routes in this batch: 671, 672, 674, 675, 677, 678, 679, 68, 681, 683<br>
+  • Weekend: 2026-03-14 → 2026-03-15 (London)<br>
+  • Both inbound and outbound directions.
+</p>
+
+<div id="blocked" class="blocked">
+  <strong>Popups are blocked for this site.</strong><br>
+  Planned tabs: <span id="tabCount">?</span>.<br>
+  Allow popups for this site <em>first</em>, then click “Open all tabs” to open everything in order.<br>
+  Otherwise the browser may open only 0–1 tab.<br><br>
+
+  <button id="openAll">Open all tabs</button>
+  <div id="status"></div>
+
+  <p class="note">
+    Manual option (intended order):
+  </p>
+  <ol id="plannedList"></ol>
+
+  <p class="note">
+    Best experience: allow popups for this site to enable the one-click opener.
+  </p>
+</div>
+</body>
+</html>
